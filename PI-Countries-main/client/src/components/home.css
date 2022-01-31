@@ -1,0 +1,14 @@
+.home {
+    display: 100%;
+    height: 100vh;
+    background-image: url("https://img.freepik.com/free-vector/hand-painted-watercolor-pastel-sky-background_23-2148902771.jpg?size=626&ext=jpg&ga=GA1.1.794391429.1641859200");
+    background-size: cover;
+}
+
+.countriesPorPagina {
+    display: grid;
+    grid-template-columns: repeat(3, 270px);
+    gap: 120px;
+    padding: 40px;
+    justify-content: center;
+}

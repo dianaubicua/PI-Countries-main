@@ -1,0 +1,35 @@
+.landing {
+    display: 100%;
+    height: 100vh;
+    background-image: url("https://www.edreams.com/blog/wp-content/uploads/sites/3/2016/03/globe-map.gif");
+    background-size: cover;
+}
+
+.btn-primary {
+    color: white;
+    background-color: transparent;
+    width: 550px;
+    height: 150px;
+    font-size: 100px;
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+    box-shadow: 4px 4px 4px 4px black;
+    border-radius: 10%;
+    transition: all 0.5s ease-in-out;
+    margin-left: 400px;
+    margin-top: 200px;
+    perspective: 600px;
+}
+
+@media screen and (max-width: 980px){
+    #contenedor{
+        width: 90%;
+    }
+    #contenido{
+        width: 60%;
+    }
+    #barra_lateral{
+        width:30%;
+    }
+}

@@ -1,0 +1,23 @@
+.activitycountry {
+    display: 100%;
+    height: 100vh;
+    background-image: url("https://img.freepik.com/free-vector/hand-painted-watercolor-pastel-sky-background_23-2148902771.jpg?size=626&ext=jpg&ga=GA1.1.794391429.1641859200");
+    background-size: cover;
+}
+
+.addTourist {
+    color: #fff;
+    font-size: 35px;
+    text-align: center;
+    margin-top: 20px;
+    text-shadow: 
+        0 0 5px rgb(223, 157, 109,1),
+		0 0 10px rgba(223, 157, 109,1),
+		0 0 20px rgb(223, 157, 109,1),
+		0 0 40px rgba(246, 144, 72,1),
+		0 0 80px rgba(246, 144, 72,1),
+		0 0 90px rgb(250, 101, 1, 1),
+		0 0 100px rgba(250, 101, 1,1),
+		0 0 140px rgb(255, 255, 255),
+		0 0 180px rgb(248, 222, 204);
+}

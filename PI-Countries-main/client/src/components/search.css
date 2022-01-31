@@ -1,0 +1,43 @@
+.input {
+    background-color: white;
+    border: none;
+    color: gray;
+    font-size: 1.5rem;
+    font-weight: 550;
+    margin-right: 10px;
+}
+
+.input:focus{
+    outline: none;
+}
+
+.input::placeholder{
+    color: rgb(190, 185, 185);
+}
+
+.searchBar {
+    display: flex;
+    margin-top: 1.5rem;
+    margin-left: 1.5rem;
+    border-radius: 30px;
+}
+
+.botoncito {
+    border: solid 2px transparent;
+    border-radius: 99999px;
+    width: 3rem;
+    height: 3rem;
+    font-size: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: whitesmoke;
+    transition: background-color 0.25s;
+    cursor: pointer;
+    color: #EC6408;
+}
+
+.botoncito:hover {
+    background-color: #EC6408;
+    color: white;
+}
