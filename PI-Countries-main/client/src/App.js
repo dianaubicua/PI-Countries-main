@@ -7,7 +7,7 @@ import {
 import Landing from './components/landing';
 import Home from './components/home';
 import DetailCountry from './components/detailcountry';
-import ActivityCountry from './components/activitycountry';
+import CreateActivity from './components/activitycountry';
 import About from './components/about';
 import { Provider } from 'react-redux';
 import store from './store/index';
@@ -20,7 +20,7 @@ function App() {
         <Route path="/" element={<Landing />} />
         <Route path="/home" element={<Home />} />
         <Route path="/detailcountry" element={<DetailCountry />} />
-        <Route path="/activitycountry" element={<ActivityCountry />} />
+        <Route path="/activitycountry" element={<CreateActivity />} />
         <Route path="/about" element={<About />} />
       </Routes>
       </Provider>

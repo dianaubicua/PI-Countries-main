@@ -4,7 +4,7 @@ import Navbar from "./navbar";
 import SearchBox from "./search";
 import { useEffect, useState } from "react"; //useDispatch permite acceder a cualquier store pero esta vez para actualizar algo
 import { useDispatch, useSelector } from "react-redux";
-import { getCountries, filterCountriesByContinent, filterActivities, orderByName, orderByPopulation} from "../actions/index";
+import { getCountries, filterCountriesByContinent, filterActivities, orderByName} from "../actions/index";
 import Minicard from "./minicard";
 import Paginado from "./paginado";
 
@@ -50,7 +50,7 @@ const Home = () => {
 
     }
 
-    const changeOrder = (event) => {
+    const changeOrder = (event) => { //orden por nombre
         event.preventDefault()
         setOrder(event.target.value)
     }

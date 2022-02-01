@@ -1,4 +1,4 @@
-.activitycountry {
+.fondo {
     display: 100%;
     height: 100vh;
     background-image: url("https://img.freepik.com/free-vector/hand-painted-watercolor-pastel-sky-background_23-2148902771.jpg?size=626&ext=jpg&ga=GA1.1.794391429.1641859200");
@@ -20,4 +20,18 @@
 		0 0 100px rgba(250, 101, 1,1),
 		0 0 140px rgb(255, 255, 255),
 		0 0 180px rgb(248, 222, 204);
+}
+
+.nameAct {
+    font-size: 20px;
+    text-align: center;
+    margin: 20px 10px 10px 10px;
+    font-weight: bolder;
+}
+
+.numeros {
+    font-size: 20px;
+    text-align: center;
+    margin: 20px 10px 10px 10px;
+    font-weight: bolder;
 }

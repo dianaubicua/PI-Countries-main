@@ -76,7 +76,7 @@ const countriesBd = async(req, res) => {
 
 const countriesName = async(req, res) => {
     const name = req.query;
-    console.log(name);
+    //console.log(name);
     try {
         const totalCountries = await Country.findAll({
             include: [{
@@ -108,16 +108,34 @@ const countriesName = async(req, res) => {
     catch(err) {
         console.log(err);
     }
+}
 
-
-    const countriesById = async(req, res) => {
-
-    }
-
-
-    //console.log(countriesBd);
-    
+    const findById = async (req, res) => {
+        const id = req.params.id;
+        try{
+            const country = await Country.findAll({
+                include: [{
+                    model: Tourism, //para traer la actividad que le puse al pais
+                    attributes: ['name', 'difficulty', 'duration', 'season'],
+                    through: {
+                        attributes: [],
+                    }
+                }],
+                where: {
+                    id: id
+                }
+            });
+           country.length ? res.send(country) : 
+           res.status(400).send('No se encontró ningún país con ese id');
+        }
+        catch(err){
+            console.log(err);
+        }
 }
 
 
-module.exports = {getApiInfo, guardarPaises, countriesBd, countriesName};
+
+    
+
+
+module.exports = { countriesBd, countriesName, findById}

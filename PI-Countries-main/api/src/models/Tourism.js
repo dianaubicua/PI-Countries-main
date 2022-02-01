@@ -17,7 +17,7 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     season: {
-      type: DataTypes.ENUM('primavera', 'verano', 'otoño', 'invierno'), //ASÍ SÓLO PERMITO ESTOS VALORES
+      type: DataTypes.ENUM('Spring', 'Summer', 'Autumn', 'Winter'), //ASÍ SÓLO PERMITO ESTOS VALORES
       allowNull: false,
     },
     createdInDb: { //ESTO NO ES UN CAMPO DE LA BASE DE DATOS

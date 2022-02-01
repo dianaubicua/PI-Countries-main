@@ -14,5 +14,15 @@ const createActivity = async(req, res) => {
   res.send("Activity created");
 
 }
+
+const getActivities = async(req, res) => {
+  try {
+    let activities = await Tourism.findAll()
+    res.status(200).send(activities);
+    }
+  catch (error) {
+    res.status(500).send(error);
+  }
+}
   
-  module.exports = {createActivity};
+  module.exports = {createActivity, getActivities};

@@ -4,7 +4,7 @@ import "./minicard.css";
 function Minicard({flags, name, continents}) {
 return (
         <div className="minicard">
-            <img className="flagcountry" src={flags} alt="flag not found" width="250px" height="125px" />
+            <img className="flagcountry" src={flags} alt="flag not found" width="125px" height="62px" />
             <br/>
             <h3 className="textname">{name}</h3>
             <br/>

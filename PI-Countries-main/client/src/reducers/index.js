@@ -3,6 +3,7 @@
 const initalState = { 
     countries: [],
     allCountries: [],
+    activities: [],
 }
 
 function rootReducer(state = initalState, action) {
@@ -19,8 +20,14 @@ function rootReducer(state = initalState, action) {
                 ...state,
                 countries: action.payload
             }
+        case 'GET_ACTIVITIES':
+            return {
+                ...state,
+                activities: action.payload
+
+            }
         case 'ORDER_BY_NAME':
-            let sortedArr = action.payload == 'asc' ?
+            let sortedArr = action.payload === 'asc' ?
                 state.countries.sort(function(a,b){
                     if (a.name > b.name) {
                         return 1;
@@ -42,7 +49,7 @@ function rootReducer(state = initalState, action) {
                 ...state,
                 countries: sortedArr
             }
-        case 'ORDER_BY_POPULATION':
+        /* case 'ORDER_BY_POPULATION':
             let sortedArr2 = action.payload == 'ASC' ?
                 state.countries.sort(function(a,b){
                     if (a.population > b.population) {
@@ -64,7 +71,7 @@ function rootReducer(state = initalState, action) {
                 return {
                     ...state,
                     countries: sortedArr2
-                }
+                } */
                 
 
         case 'FILTER_COUNTRIES_BY_CONTINENT':
@@ -74,6 +81,11 @@ function rootReducer(state = initalState, action) {
                 ...state,
                 countries: filteredCountries
             }
+        
+        case 'POST_ACTIVITIES':
+            return {
+                ...state,
+            } 
         case 'FILTER_BY_ACTIVITIES':
             const allCountries2 = state.allCountries;
             const createTourism = action.payload === 'All' ? state.allCountries.filter(el => el.createdInDb) : state.allCountries.filter(el => !el.createdInDb);

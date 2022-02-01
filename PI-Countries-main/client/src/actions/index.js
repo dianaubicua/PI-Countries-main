@@ -27,6 +27,26 @@ export function getCountries() { //conexión con el backend
     }
   }
 
+  export function getActivities(){ //este get trae las actividades creadas 
+    return async function(dispatch) {
+      var info = await axios.get('http://localhost:3001/createdactivities', {
+
+      });
+      return dispatch({
+        type: 'GET_ACTIVITIES',
+        payload: info.data
+      })
+    }
+  }
+
+export function postActivities(payload) { //este post crea las actividades
+  return async function(dispatch) {
+    const response = await axios.post('http://localhost:3001/activities', payload);
+    console.log (response);
+    return response;
+}
+}
+
   export function orderByName (payload) {
     return {
       type: 'ORDER_BY_NAME',
