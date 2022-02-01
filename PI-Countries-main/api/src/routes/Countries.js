@@ -1,10 +1,12 @@
 const axios = require('axios');
 const e = require('express');
 const { Tourism, Country } = require('../db');
+const { Op } = require("sequelize");
 
 //Busco la informacion de la API
 const getApiInfo = async(req, res) => {
     const apiUrl = await axios.get('https://restcountries.com/v3/all');
+
     const countries = await apiUrl.data.map(e => {
         return {
             id: e.cca3,
@@ -37,21 +39,22 @@ const guardarPaises = async(req, res) => {
                 }
             })
         })
-    //     const totalCountries = await Country.findAll({
-    //         include: [{
-    //             model: Tourism,
-    //             attributes: ['name'],
-    //             through: {
-    //                 attributes: [],
-    //             }
-    //         }]
-    //     });
-    //    res.json(totalCountries);
+         const totalCountries = await Country.findAll({
+            include: [{
+                 model: Tourism,
+                attributes: ['name'],
+                through: {
+                   attributes: [],
+                 }
+             }]
+         });
+      res.json(totalCountries);
     }
     catch(err) {
         console.log(err);
     }
 }
+
 const countriesBd = async(req, res) => {
     try {
         const totalCountries = await Country.findAll({
@@ -71,18 +74,50 @@ const countriesBd = async(req, res) => {
     }
 }
 
+const countriesName = async(req, res) => {
+    const name = req.query;
+    console.log(name);
+    try {
+        const totalCountries = await Country.findAll({
+            include: [{
+                model: Tourism,
+                attributes: ['name'],
+                through: {
+                    attributes: [],
+                }
+            }]
+        });
+    
+        if (name) {
+            const nombre = await totalCountries.filter(e=>{
+                let data = JSON.parse( JSON.stringify(e));
+                //console.log(data.name,name.queryName);
+                if(data.name === name.queryName){
+                    //console.log(data.name);
+                    return data;
+                }
+            });
+            nombre.length ?
+             res.status(200).send(nombre) :
+            res.status(404).send('No se encontró ningún país con ese nombre');
+         } else {
+             res.status(200).send(totalCountries);
+         }
+    }
 
-/* const countryId = async(req, res) => {
-    const countryId =req.params.id;
-    let countryById = await Country.fundByPk(countryId, {
-        include: {
-            model: Tourism,
-        }
-    })
-} */
+    catch(err) {
+        console.log(err);
+    }
 
 
+    const countriesById = async(req, res) => {
+
+    }
 
 
+    //console.log(countriesBd);
+    
+}
 
-module.exports = {getApiInfo, guardarPaises, countriesBd };
+
+module.exports = {getApiInfo, guardarPaises, countriesBd, countriesName};

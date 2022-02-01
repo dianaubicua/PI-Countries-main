@@ -4,7 +4,7 @@ import Navbar from "./navbar";
 import SearchBox from "./search";
 import { useEffect, useState } from "react"; //useDispatch permite acceder a cualquier store pero esta vez para actualizar algo
 import { useDispatch, useSelector } from "react-redux";
-import { getCountries, filterCountriesByContinent, filterActivities} from "../actions/index";
+import { getCountries, filterCountriesByContinent, filterActivities, orderByName, orderByPopulation} from "../actions/index";
 import Minicard from "./minicard";
 import Paginado from "./paginado";
 
@@ -14,7 +14,8 @@ const Home = () => {
 
     const allTourism = useSelector((state) => state.activities);
 
-    const [isLoading, setIsLoading] = useState(true);
+    const [orden, setOrden] = useState('');
+    const [order, setOrder] = useState('')
 
     //Pagina actual
     const [currentPage, setCurrentPage] = useState(1);
@@ -41,6 +42,19 @@ const Home = () => {
         dispatch(getCountries());
     }
 
+    function handleSort (e) {
+        e.preventDefault();
+        dispatch(orderByName(e.target.value));
+        setCurrentPage(1);
+        setOrden(e.target.value);
+
+    }
+
+    const changeOrder = (event) => {
+        event.preventDefault()
+        setOrder(event.target.value)
+    }
+
     function handleFilterContinent(e){
         dispatch(filterCountriesByContinent(e.target.value));
     }
@@ -49,18 +63,19 @@ const Home = () => {
         dispatch(filterActivities(e.target.value));
     }
 
+
     return (
         <div className="home">
             <Navbar />
             <SearchBox />
         <div>
-            <select>
-                <option onChange={e => handleSort(e)} >Sort by Name</option>
+            <select onChange={e => handleSort(e)}>
+                <option >Sort by Name</option>
                 <option value='asc'>Ascending order</option>
                 <option value='desc'>Descending order</option>
             </select>
-            <select>
-                <option>Sort by Population</option>
+            <select onChange={e => changeOrder(e)}>
+                <option >Sort by Population</option>
                 <option value='ASC'>Ascending order</option>
                 <option value='DESC'>Descending order</option>
             </select>

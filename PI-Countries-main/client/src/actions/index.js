@@ -13,6 +13,36 @@ export function getCountries() { //conexión con el backend
   }
   }
 
+  export function getNameCountries (name) {
+    return async function(dispatch) {
+      try {
+        var json = await axios.get('http://localhost:3001/countries/name?queryName='+name);
+        return dispatch({
+          type: 'GET_NAME_COUNTRIES',
+          payload: json.data
+        })
+      } catch (error) {
+        console.log(error);
+     } 
+    }
+  }
+
+  export function orderByName (payload) {
+    return {
+      type: 'ORDER_BY_NAME',
+      payload
+    }
+  }
+
+  export function orderByPopulation (payload) {
+    return {
+      type: 'ORDER_BY_POPULATION',
+      payload
+    }
+  }
+
+
+
   export function filterCountriesByContinent(payload) {
     return {
       type: 'FILTER_COUNTRIES_BY_CONTINENT',
@@ -27,6 +57,10 @@ export function getCountries() { //conexión con el backend
     }
   }
 
+
   export const GET_COUNTRIES = 'GET_COUNTRIES';
   export const FILTER_COUNTRIES_BY_CONTINENT = 'FILTER_COUNTRIES_BY_CONTINENT';
   export const FILTER_BY_ACTIVITIES = 'FILTER_BY_ACTIVITIES';
+  export const ORDER_BY_NAME = 'ORDER_BY_NAME';
+  export const ORDER_BY_POPULATION = 'ORDER_BY_POPULATION';
+  export const GET_NAME_COUNTRIES = 'GET_NAME_COUNTRIES';

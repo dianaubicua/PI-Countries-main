@@ -2,13 +2,13 @@ import React from "react";
 import "./activitycountry.css";
 import Navbar from "./navbar";
 //import { Link } from "react-router-dom";
-//import { useState, useEffect } from "react"; //useDispatch permite acceder a cualquier store pero esta vez para actualizar algo
-//import { useSelector, useDispatch } from "react-redux"; 
+import { useState} from "react"; //useDispatch permite acceder a cualquier store pero esta vez para actualizar algo
+import { useSelector, useDispatch } from "react-redux"; 
 //import { getCountries } from "../actions/index";
-//import { useHistory } from "use-history";
+import { useHistory } from "use-history";
 
 export default function ActivityCountry() {
-   /*  const dispatch = useDispatch();
+    const dispatch = useDispatch();
     const history = useHistory();
     const countries = useSelector((state) => state.countries);
     const [errors, setErrors] = useState([]); //useState es una función que crea internamente una variable donde podremos almacenar el estado de nuestro componente
@@ -19,7 +19,7 @@ export default function ActivityCountry() {
         season: "",
         countries
     });
-    
+
 
     function handleSelect(e) {
         setInput({
@@ -28,7 +28,7 @@ export default function ActivityCountry() {
             countries: [...input.countries, e.target.value]
         });
     }
- */
+
     function handleCheck(e) {
         if(e.target.checked) {
             setInput({
