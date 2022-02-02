@@ -3,8 +3,6 @@ import axios from 'axios';
 export function getCountries() { //conexión con el backend 
     return async function(dispatch) {
       var json = await axios.get('http://localhost:3001/countries', { //aquí tenemos la conexión con la bd
-      
-  
       });
     return dispatch({
       type: 'GET_COUNTRIES',
@@ -27,7 +25,21 @@ export function getCountries() { //conexión con el backend
     }
   }
 
-  export function getActivities(){ //este get trae las actividades creadas 
+  export function getActivities (){
+    return function (dispatch){
+        axios.get("http://localhost:3001/createdactivities")
+        .then ((response) => {
+            console.log(response.data)
+            return dispatch ({
+                type: "GET_ACTIVITIES",
+                payload: response.data,
+            })
+        })
+    }
+}
+
+
+  /* export function getActivities(){ //este get trae las actividades creadas 
     return async function(dispatch) {
       var info = await axios.get('http://localhost:3001/createdactivities', {
 
@@ -37,19 +49,26 @@ export function getCountries() { //conexión con el backend
         payload: info.data
       })
     }
-  }
+  } */
 
-export function postActivities(payload) { //este post crea las actividades
-  return async function(dispatch) {
-    const response = await axios.post('http://localhost:3001/activities', payload);
-    console.log (response);
-    return response;
+export function createActivity(payload) { //este post crea las actividades
+  console.log(payload)
+  return async function () {
+    var data = await axios.post("http://localhost:3001/activities", payload);
+    return data
 }
 }
 
   export function orderByName (payload) {
     return {
       type: 'ORDER_BY_NAME',
+      payload
+    }
+  }
+
+  export function filterCountriesByContinent(payload) {
+    return {
+      type: 'FILTER_COUNTRIES_BY_CONTINENT',
       payload
     }
   }
@@ -61,26 +80,33 @@ export function postActivities(payload) { //este post crea las actividades
     }
   }
 
-
-
-  export function filterCountriesByContinent(payload) {
+  export function filterByActivities (payload) {
     return {
-      type: 'FILTER_COUNTRIES_BY_CONTINENT',
-      payload
+        type: "FILTER_BY_ACTIVITIES",
+        payload,
     }
-  }
+}
 
-  export function filterActivities(payload) {
-    return {
-      type: 'FILTER_BY_ACTIVITIES',
-      payload
+export function getClean () {
+  return {
+    type: "GET_CLEAN",
+  }
+}
+
+  export function getDetail (id) {
+    return function (dispatch) {
+        axios.get("http://localhost:3001/countries/" + id)
+        .then(response => {
+            console.log(response.data)
+            return dispatch({
+                type: "GET_DETAIL",
+                 payload: response.data
+            })
+        })
+        .catch((error) => {
+            console.error(error)
+        })
     }
-  }
+}
 
 
-  export const GET_COUNTRIES = 'GET_COUNTRIES';
-  export const FILTER_COUNTRIES_BY_CONTINENT = 'FILTER_COUNTRIES_BY_CONTINENT';
-  export const FILTER_BY_ACTIVITIES = 'FILTER_BY_ACTIVITIES';
-  export const ORDER_BY_NAME = 'ORDER_BY_NAME';
-  export const ORDER_BY_POPULATION = 'ORDER_BY_POPULATION';
-  export const GET_NAME_COUNTRIES = 'GET_NAME_COUNTRIES';

@@ -1,9 +1,17 @@
-
+import { orderByName, orderByPopulation } from "../actions"
 
 const initalState = { 
     countries: [],
     allCountries: [],
-    activities: [],
+    continents: [],
+    detail: [],
+    toruisms: [],
+    filter: {
+        continent: 'All',
+        toruism: 'All',
+        name: 'All',
+        population: 'All'
+    }
 }
 
 function rootReducer(state = initalState, action) {
@@ -20,10 +28,10 @@ function rootReducer(state = initalState, action) {
                 ...state,
                 countries: action.payload
             }
-        case 'GET_ACTIVITIES':
+        case 'GET_TORUISMS':
             return {
                 ...state,
-                activities: action.payload
+                toruisms: action.payload
 
             }
         case 'ORDER_BY_NAME':
@@ -49,30 +57,19 @@ function rootReducer(state = initalState, action) {
                 ...state,
                 countries: sortedArr
             }
-        /* case 'ORDER_BY_POPULATION':
-            let sortedArr2 = action.payload == 'ASC' ?
-                state.countries.sort(function(a,b){
-                    if (a.population > b.population) {
-                        return 1;
-                    }
-                    if (b.population > a.population) {
-                        return -1;
-                    }
-                        return 0;
-                    }) :
-                state.countries.sort (function(a, b){
-                    if (a.population > a.population){
-                        return -1;
-                    }
-                    if (b.population > b.population){
-                        return 1;
-                    }
-                })
-                return {
-                    ...state,
-                    countries: sortedArr2
-                } */
-                
+
+            case "ORDER_BY_POPULATION":
+                let score = orderByPopulation(state.countries, action.payload)
+                  return {
+                      ...state,
+                      countries: score,
+                      filter: {
+                          ...state.filter,
+                          population: action.payload
+                      }
+                    //   countries: action.payload === 'all' ? state.allCountries : orderScore,
+                  }
+        
 
         case 'FILTER_COUNTRIES_BY_CONTINENT':
             const allCountries = state.allCountries;
@@ -82,18 +79,37 @@ function rootReducer(state = initalState, action) {
                 countries: filteredCountries
             }
         
-        case 'POST_ACTIVITIES':
+        case 'POST_ACTIVITY'://hay que tenerlo en el reducer
             return {
                 ...state,
             } 
         case 'FILTER_BY_ACTIVITIES':
-            const allCountries2 = state.allCountries;
-            const createTourism = action.payload === 'All' ? state.allCountries.filter(el => el.createdInDb) : state.allCountries.filter(el => !el.createdInDb);
+            let totalCountries = [...state.allCountries];
+            if (state.filter.nombre !== "all") {
+                totalCountries = orderByName(totalCountries, state.filter.nombre)
+            }
+            if (state.filter.population !== "all") {
+                totalCountries = orderByPopulation(totalCountries, state.filter.population)
+            }
+            let CountriesFilter = action.payload.includes("all") ? totalCountries : totalCountries.filter((el) => el.activities.map((act) => act.name).includes(action.payload));
             return {
                 ...state,
-                countries: action.payload === 'All' ? state.allCountries : createTourism
+                countries: CountriesFilter,
+                filter: {
+                    ...state.filter,
+                    activity: action.payload
+                }
             }
-
+        case 'GET_DETAIL':
+            return {
+                ...state,
+                detail: action.payload
+            }
+        case "GET_CLEAN":
+                return {
+                    ...state,
+                    detail: []
+                }
         default:
             return state
     }

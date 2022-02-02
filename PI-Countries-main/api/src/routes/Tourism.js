@@ -4,7 +4,7 @@ const { Tourism, Country } = require('../db');
 
 const createActivity = async(req, res) => {
   const { name, difficulty, duration, season, country } = req.body;
-  const newActivity = await Tourism.create({ name, difficulty, duration, season, country });
+  const newActivity = await Tourism.create({ name, difficulty, duration, season });
 
   let activityAndCountry = await Country.findOne({
     where: {name: country},

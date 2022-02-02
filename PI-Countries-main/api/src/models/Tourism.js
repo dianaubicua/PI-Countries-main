@@ -1,9 +1,16 @@
-const { DataTypes } = require('sequelize');
+const { DataTypes, Sequelize } = require('sequelize');
 // Exportamos una funcion que define el modelo
 // Luego le injectamos la conexion a sequelize.
 module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define('tourism', {
+    Id: {
+      type: DataTypes.UUID,   // para que no choque con los ID de la api
+      allowNull: false,
+      unique: true,
+      primaryKey: true, // indica que el ID es la PK
+      defaultValue: Sequelize.UUIDV4,
+      }, 
     name: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -23,7 +30,7 @@ module.exports = (sequelize) => {
     createdInDb: { //ESTO NO ES UN CAMPO DE LA BASE DE DATOS
         type: DataTypes.BOOLEAN, //propiedad para diferenciar entre los que se crean en la base de datos y los que se crean en la app
         allowNull: false,
-        defaultValue: false,
+        defaultValue: true,
     },
   });
 };

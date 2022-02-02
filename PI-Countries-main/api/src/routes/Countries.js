@@ -66,6 +66,7 @@ const countriesBd = async(req, res) => {
                 }
             }]
         });
+        console.log(totalCountries);
         res.json(totalCountries);
     }
 
@@ -138,4 +139,4 @@ const countriesName = async(req, res) => {
     
 
 
-module.exports = { countriesBd, countriesName, findById}
+module.exports = { countriesBd, countriesName, findById, guardarPaises, getApiInfo}

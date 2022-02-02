@@ -4,29 +4,29 @@ import Navbar from "./navbar";
 import SearchBox from "./search";
 import { useEffect, useState } from "react"; //useDispatch permite acceder a cualquier store pero esta vez para actualizar algo
 import { useDispatch, useSelector } from "react-redux";
-import { getCountries, filterCountriesByContinent, filterActivities, orderByName} from "../actions/index";
+import { getCountries,  
+    orderByName, 
+    orderByPopulation,
+    getActivities,
+    filterCountriesByContinent,
+    filterByActivities, } from "../actions/index";
 import Minicard from "./minicard";
 import Paginado from "./paginado";
+import { Link } from "react-router-dom";
 
-const Home = () => {
+export default function Home () {
     const dispatch = useDispatch();
     const allCountries = useSelector((state) => state.countries);
-
-    const allTourism = useSelector((state) => state.activities);
-
-    const [orden, setOrden] = useState('');
-    const [order, setOrder] = useState('')
-
-    //Pagina actual
+    const [orden, setOrder] = useState("");
+    const [orden2, setOrder2] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
-    //Cantidad de elementos por pagina
     const [countriesPerPage, setCountriesPage] = useState(9);
-
-    
-
     const indexOfLastCountry = currentPage * countriesPerPage; //9
     const indexOfFirstCountry = indexOfLastCountry - countriesPerPage; //0
     const currentCountries = allCountries.slice(indexOfFirstCountry, indexOfLastCountry); //0-9 el slice toma un arreglo y trae la porcion que yo pongo como arreglo
+  
+    const allTourism = useSelector((state) => state.activities);
+    
 
     const paginado = (pageNumber) => { //esta es la función que nos va a ayudar al renderizado
         setCurrentPage(pageNumber); //la constante setea la pagina 
@@ -34,6 +34,7 @@ const Home = () => {
     
     useEffect(() => {
         dispatch(getCountries());
+        dispatch(getActivities());
     },[dispatch]);//aquí se agregan las dependencias 
 
 
@@ -42,17 +43,19 @@ const Home = () => {
         dispatch(getCountries());
     }
 
-    function handleSort (e) {
+    function handleSortName (e) {
         e.preventDefault();
         dispatch(orderByName(e.target.value));
         setCurrentPage(1);
-        setOrden(e.target.value);
+        setOrder(`Ordenado ${e.target.value}`);
 
     }
 
-    const changeOrder = (event) => { //orden por nombre
-        event.preventDefault()
-        setOrder(event.target.value)
+    function handleSortPopulation (e) {
+        e.preventDefault();
+        dispatch(orderByPopulation(e.target.value));
+        setCurrentPage(1);
+        setOrder2(`Ordenado ${e.target.value}`);
     }
 
     function handleFilterContinent(e){
@@ -60,8 +63,12 @@ const Home = () => {
     }
 
     function handleFilterActivities(e){
-        dispatch(filterActivities(e.target.value));
+        e.preventDefault()
+         dispatch(filterByActivities(e.target.value))
+         setCurrentPage(1)
     }
+
+
 
 
     return (
@@ -69,17 +76,17 @@ const Home = () => {
             <Navbar />
             <SearchBox />
         <div>
-            <select onChange={e => handleSort(e)}>
+            <select onChange={(e) => handleSortName(e)}>
                 <option >Sort by Name</option>
                 <option value='asc'>Ascending order</option>
                 <option value='desc'>Descending order</option>
             </select>
-            <select onChange={e => changeOrder(e)}>
+            <select onChange={(e) => handleSortPopulation(e)}>
                 <option >Sort by Population</option>
                 <option value='ASC'>Ascending order</option>
                 <option value='DESC'>Descending order</option>
             </select>
-            <select onChange={e => handleFilterContinent(e)} >
+            <select onChange={(e) => handleFilterContinent(e)} >
                 <option value='All'>Selection by Continent</option>
                 <option value='Africa'>Africa</option>
                 <option value='North America'>North America</option>
@@ -89,10 +96,10 @@ const Home = () => {
                 <option value='Europe'>Europe</option>
                 <option value='Oceania'>Oceania</option>
             </select>
-             <select onChange={event => handleFilterActivities(event)} >
+             <select onChange={(e) => handleFilterActivities(e)} >
                 <option value='All'>Selection by Activities</option>
-                { allTourism && allTourism.map(tourism => (
-                     <option value={tourism.name}>{tourism.name}</option>
+                { allTourism?.map((e)=> (
+                     <option value={e}>{e}</option>
                     ))}
             </select>
 
@@ -102,11 +109,17 @@ const Home = () => {
             allCountries={allCountries.length}
             paginado = {paginado} />
     <ul className="countriesPorPagina">
-    {currentCountries?.map((c) => (
-            (
-                <Minicard continents={c.continents} name={c.name} flags={c.flags} />
-            )    
-        ))}     
+    {currentCountries?.map((c) =>
+     (<div>
+        <Link to={"/detailcountry/" + c.id}>
+            <Minicard 
+            continents={c.continents} 
+            name={c.name} 
+            flags={c.flags}
+            key={c.id}
+            id={c.id} />
+        </Link>    
+    </div> ))}     
 
     </ul>       
         </div>
@@ -114,4 +127,4 @@ const Home = () => {
     );
 }
 
-export default Home;
+//export default Home;
