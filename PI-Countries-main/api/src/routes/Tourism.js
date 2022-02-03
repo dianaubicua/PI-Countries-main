@@ -15,19 +15,16 @@ const createActivity = async(req, res) => {
   
 }
 
-/* const getNameActivities = async(req, res) => {
+const getNameActivities = async(req, res) => {
   try {
-    let activities = await Tourism.findAll({
-      where: {
-        name: req.params.name
-      }
-    })
-    res.status(200).send(activities);
+    let activities = await Tourism.findAll()
+    const nombres = activities.map(e => e.name);
+    res.status(200).send(nombres);
     }
   catch (error) {
     res.status(500).send(error);
   }
-} */
+} 
 
 const getActivities = async(req, res) => {
   try {
@@ -39,4 +36,4 @@ const getActivities = async(req, res) => {
   }
 }
   
-  module.exports = {createActivity, getActivities};
+  module.exports = {createActivity, getActivities, getNameActivities};

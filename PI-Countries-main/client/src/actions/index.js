@@ -59,6 +59,17 @@ export function createActivity(payload) { //este post crea las actividades
 }
 }
 
+export function filterByActivities (payload) {
+  return async function (dispatch) {
+    var names = await axios.get("http://localhost:3001/activityname");
+    return dispatch({
+      type: 'FILTER_BY_ACTIVITIES',
+      payload: names.data
+    })
+}
+}
+
+
   export function orderByName (payload) {
     return {
       type: 'ORDER_BY_NAME',
@@ -80,13 +91,7 @@ export function createActivity(payload) { //este post crea las actividades
     }
   }
 
-  export function filterByActivities (payload) {
-    return {
-        type: "FILTER_BY_ACTIVITIES",
-        payload,
-    }
-}
-
+ 
 export function getClean () {
   return {
     type: "GET_CLEAN",

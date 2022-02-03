@@ -25,7 +25,7 @@ export default function Home () {
     const indexOfFirstCountry = indexOfLastCountry - countriesPerPage; //0
     const currentCountries = allCountries.slice(indexOfFirstCountry, indexOfLastCountry); //0-9 el slice toma un arreglo y trae la porcion que yo pongo como arreglo
   
-    const allTourism = useSelector((state) => state.activities);
+    const allTourisms = useSelector((state) => state.toruisms);
     
 
     const paginado = (pageNumber) => { //esta es la función que nos va a ayudar al renderizado
@@ -35,6 +35,7 @@ export default function Home () {
     useEffect(() => {
         dispatch(getCountries());
         dispatch(getActivities());
+        dispatch(filterByActivities());
     },[dispatch]);//aquí se agregan las dependencias 
 
 
@@ -64,7 +65,7 @@ export default function Home () {
 
     function handleFilterActivities(e){
         e.preventDefault()
-         dispatch(filterByActivities(e.target.value))
+         dispatch(filterByActivities(e.target.value));
          setCurrentPage(1)
     }
 
@@ -98,9 +99,12 @@ export default function Home () {
             </select>
              <select onChange={(e) => handleFilterActivities(e)} >
                 <option value='All'>Selection by Activities</option>
-                { allTourism?.map((e)=> (
-                     <option value={e}>{e}</option>
-                    ))}
+                
+                { allTourisms?.map((e)=> {
+                   
+                    return <option value={e}>{e}</option>
+                }
+                    )}
             </select>
 
 

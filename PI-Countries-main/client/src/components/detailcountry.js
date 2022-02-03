@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getDetail, getClean } from "../actions/index";
 import Navbar from "./navbar";
+import './detailcountry.css';
 
 
 export default function Detail (props) {

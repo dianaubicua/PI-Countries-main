@@ -1,5 +1,3 @@
-import { orderByName, orderByPopulation } from "../actions"
-
 const initalState = { 
     countries: [],
     allCountries: [],
@@ -114,22 +112,11 @@ function rootReducer(state = initalState, action) {
                 ...state,
             } 
         case 'FILTER_BY_ACTIVITIES':
-            let totalCountries = [...state.allCountries];
-            if (state.filter.nombre !== "all") {
-                totalCountries = orderByName(totalCountries, state.filter.nombre)
-            }
-            if (state.filter.population !== "all") {
-                totalCountries = orderByPopulation(totalCountries, state.filter.population)
-            }
-            let CountriesFilter = action.payload.includes("all") ? totalCountries : totalCountries.filter((el) => el.activities.map((act) => act.name).includes(action.payload));
             return {
                 ...state,
-                countries: CountriesFilter,
-                filter: {
-                    ...state.filter,
-                    activity: action.payload
-                }
+                toruisms: action.payload
             }
+            
         case 'GET_DETAIL':
             return {
                 ...state,

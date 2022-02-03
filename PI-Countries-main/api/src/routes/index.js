@@ -2,7 +2,7 @@ const { Router } = require('express');
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
 const { countriesBd, countriesName, findById, guardarPaises, getApiInfo} = require('./countries.js');
-const { createActivity, getActivities } = require('./tourism.js');
+const { createActivity, getActivities, getNameActivities } = require('./tourism.js');
 
 const router = Router();
 
@@ -18,7 +18,7 @@ router.get('/createdactivities', getActivities);
 
 router.get('/paisesguardados', guardarPaises);
 router.get('/traerpaises', getApiInfo);
-//router.get('/activityname', getNameActivities);
+router.get('/activityname', getNameActivities);
 
 
 
