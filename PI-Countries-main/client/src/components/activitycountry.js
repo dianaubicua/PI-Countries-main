@@ -11,7 +11,7 @@ function validate(input){
     let errors = {}
 
     if(!input.name){
-        errors.name = "a name is required";
+        errors.name = "A name is required";
     } else {
         errors.name = ""
     }
@@ -29,15 +29,15 @@ function validate(input){
     }
 
     if(!input.season){
-       errors.season = "Se requiere una estacion del año";
+       errors.season = "A season of the year is required";
     } else {
         errors.season = ""
     }
 
     if(input.country.length===0){
-        errors.country = "Se requiere minimo un pais";
+        errors.country = "A minimum of one country is required";
     } else {
-        errors.country = ""
+        errors.country = []
     }
 
     return errors
@@ -108,14 +108,14 @@ export default function CreateActivity(){
             difficulty: "",
             duration: "",
             season: "", 
-            country: "",
+            country: [],
         })
     }
 
     return (
         <div className="fondo" >
             <Navbar />
-            <h1 > ¡Crea una actividad turistica! </h1>
+            <h1 className="addTourist"> Create a tourist activity!</h1>
 
             <form onSubmit={(e)=>handleSubmit(e)}>
                 <div>
@@ -125,6 +125,7 @@ export default function CreateActivity(){
                     value= {input.name}
                     name= "name"
                     onChange={handleChange}
+                    placeholder="Name of the activity"
                     />
                      {errors.name && (
                         <p> {errors.name} </p>
@@ -155,6 +156,7 @@ export default function CreateActivity(){
                     value= {input.duration}
                     name= "duration"
                     onChange={handleChange}
+                    placeholder="Duration of the activity"
                     />
                     {errors.duration && (
                         <p className="error"> {errors.duration} </p>
@@ -169,6 +171,7 @@ export default function CreateActivity(){
                     value= {input.season}
                     name= "season"
                     onChange={handleChange}
+                    placeholder="Spring, Summer, Autumn, Winter"
                     />
                      {errors.season && (
                         <p className="error"> {errors.season} </p>
@@ -176,7 +179,7 @@ export default function CreateActivity(){
                 </div>
 
                 <div>
-                    <select  onChange={(e) => handleSelect(e)} name= "country">
+                    <select  onChange={(e) => handleSelect(e)} name="country">
 
                     {allCountries.map((e) => (
                         <option value={e.name}> {e.name} </option>
@@ -191,13 +194,15 @@ export default function CreateActivity(){
 
                 {  
 
-                    !errors.name && !errors.difficulty && !errors.duration && !errors.season && !errors.country? 
+                    !errors.name && !errors.difficulty && !errors.duration && !errors.season && input.country.length > 0 ?
                     <button type= 'Submit'> Crear actividad turistica </button>
                     : (<p> Todos los campos deben ser completados para poder crear la actividad turistica </p>)
 
 
                  }
+
             </form>
+
             {input.country.map(el =>
                 <div>
                     <p>{el}</p>

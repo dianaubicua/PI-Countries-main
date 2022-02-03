@@ -12,10 +12,13 @@ const router = Router();
 router.get('/countries', countriesBd);
 router.get('/countries/name', countriesName);
 router.get('/countries/:id', findById);
+
 router.post('/activities', createActivity);
 router.get('/createdactivities', getActivities);
+
 router.get('/paisesguardados', guardarPaises);
 router.get('/traerpaises', getApiInfo);
+//router.get('/activityname', getNameActivities);
 
 
 

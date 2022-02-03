@@ -39,7 +39,7 @@ return (
            <h4> Subregion: {el?.subregion} </h4>
            <h4> Area:  {el?.area} km2 </h4>
            <h4> Population: {el?.population} </h4>
-           <h4> Tourist activities: {el?.activities? el.activities.map((act) => {
+           <h4> Tourist activities: {el?.tourisms? el.tourisms.map((act) => {
     
     return (
         

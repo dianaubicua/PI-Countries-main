@@ -14,6 +14,36 @@ const initalState = {
     }
 }
 
+
+function filterByPopulation (countries, payload) {
+    let score = countries
+            const orderScore = payload === "ASC" ?
+             score.sort(function(a, b){
+                if (a.population > b.population) {
+                    return -1
+                   }
+                if (b.population > a.population) {
+                     return 1
+                    }
+                    return 0
+        
+            }) :
+             score.sort(function(a, b){
+                if (a.population > b.population) {
+                    return 1
+                   }
+                if (b.population > a.population) {
+                     return -1
+                    }
+                    return 0
+            })
+            return score
+}
+
+
+
+
+
 function rootReducer(state = initalState, action) {
     switch (action.type) {
         case 'GET_COUNTRIES':
@@ -59,7 +89,7 @@ function rootReducer(state = initalState, action) {
             }
 
             case "ORDER_BY_POPULATION":
-                let score = orderByPopulation(state.countries, action.payload)
+                let score = filterByPopulation(state.countries, action.payload)
                   return {
                       ...state,
                       countries: score,
