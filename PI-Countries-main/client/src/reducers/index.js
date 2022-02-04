@@ -111,10 +111,35 @@ function rootReducer(state = initalState, action) {
             return {
                 ...state,
             } 
-        case 'FILTER_BY_ACTIVITIES':
+        case 'ACTIVITIES':
             return {
                 ...state,
                 toruisms: action.payload
+                
+            }
+
+        case 'FILTER_ACT':
+        
+        const paisesFiltrados = state.allCountries
+        
+        console.log(paisesFiltrados[0].tourisms[0])
+
+       /*  const filtrado = allCountries2.filter(country => country.toruisms.map ? ((e) => {
+            return e.name === action.payload
+        })(country.toruisms) : false) */
+        //console.log(action.payload)
+
+        const filtrado = action.payload === 'All'  ? state.allCountries : state.allCountries.filter(country => { for (let i = 0; i < country.tourisms?.length; i++) {
+            if (country.tourisms[i]?.name === action.payload) {
+                return true 
+        }} return false
+            
+        })
+     console.log(filtrado)
+        
+            return {
+                ...state,
+                countries: filtrado,
             }
             
         case 'GET_DETAIL':

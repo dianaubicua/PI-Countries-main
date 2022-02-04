@@ -59,15 +59,24 @@ export function createActivity(payload) { //este post crea las actividades
 }
 }
 
-export function filterByActivities (payload) {
+export function activities (payload) {
   return async function (dispatch) {
     var names = await axios.get("http://localhost:3001/activityname");
     return dispatch({
-      type: 'FILTER_BY_ACTIVITIES',
+      type: 'ACTIVITIES',
       payload: names.data
     })
 }
 }
+
+export function filterAct (payload) {
+console.log(payload) //este console.log es para ver que trae el payload
+    return ({
+      type: 'FILTER_ACT',
+      payload
+    })
+}
+
 
 
   export function orderByName (payload) {

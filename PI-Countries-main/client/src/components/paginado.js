@@ -4,8 +4,8 @@ import './paginado.css';
 export default function Paginado ({countriesPerPage, allCountries, paginado}) {
     const pageNumbers = [];
 
-    for (let i=0; i<=Math.ceil(allCountries/countriesPerPage); i++) { //Math.ceil redondea hacia arriba
-        pageNumbers.push(i+1); //le sumamos 1 para que empiece en 1 el paginado
+    for (let i=1; i<=Math.ceil(allCountries/countriesPerPage); i++) { //Math.ceil redondea hacia arriba
+        pageNumbers.push(i); //le sumamos 1 para que empiece en 1 el paginado
     }
     return (
         <nav className='numeros'>

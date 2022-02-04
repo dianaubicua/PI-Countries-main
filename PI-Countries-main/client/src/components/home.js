@@ -9,7 +9,9 @@ import { getCountries,
     orderByPopulation,
     getActivities,
     filterCountriesByContinent,
-    filterByActivities, } from "../actions/index";
+    filterAct,
+    activities,
+} from "../actions/index";
 import Minicard from "./minicard";
 import Paginado from "./paginado";
 import { Link } from "react-router-dom";
@@ -35,7 +37,7 @@ export default function Home () {
     useEffect(() => {
         dispatch(getCountries());
         dispatch(getActivities());
-        dispatch(filterByActivities());
+        dispatch(activities());
     },[dispatch]);//aquí se agregan las dependencias 
 
 
@@ -64,8 +66,9 @@ export default function Home () {
     }
 
     function handleFilterActivities(e){
+        console.log(e.target.value)
         e.preventDefault()
-         dispatch(filterByActivities(e.target.value));
+         dispatch(filterAct(e.target.value));
          setCurrentPage(1)
     }
 
@@ -97,10 +100,11 @@ export default function Home () {
                 <option value='Europe'>Europe</option>
                 <option value='Oceania'>Oceania</option>
             </select>
+
              <select onChange={(e) => handleFilterActivities(e)} >
                 <option value='All'>Selection by Activities</option>
                 
-                { allTourisms?.map((e)=> {
+                { allTourisms?.map((e)=> { //map par pintar las opciones de las actividades
                    
                     return <option value={e}>{e}</option>
                 }
